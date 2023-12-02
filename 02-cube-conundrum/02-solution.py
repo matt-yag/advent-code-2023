@@ -17,9 +17,6 @@ class Game:
         self.number = int(game.replace('Game ', ''))
         self.subgames = [Subgame(subgame) for subgame in cubes.split('; ')]
 
-    def is_valid(self):
-        return all(subgame.is_valid() for subgame in self.subgames)
-
     def get_power(self):
         red = 1
         green = 1
@@ -39,12 +36,6 @@ class Subgame:
         for cube in cubes:
             (amount, category) = cube.split(' ')
             self.cubes[category.strip()] = int(amount)
-
-    def is_valid(self):
-        for (category, max_count) in MAX.items():
-            if self.cubes.get(category, 0) > max_count:
-                return False
-        return True
 
     def get_red_if_higher(self, current):
         return self.get_if_higher('red', current)
